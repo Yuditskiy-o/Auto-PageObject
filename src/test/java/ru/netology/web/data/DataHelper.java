@@ -27,4 +27,18 @@ public class DataHelper {
   public static VerificationCode getVerificationCodeFor(AuthInfo authInfo) {
     return new VerificationCode("12345");
   }
+
+  @Value
+  public static class TransferInfo {
+    private String amount;
+    private String card;
+  }
+
+  public static TransferInfo getTransferInfo(String amount) {
+    return new TransferInfo(amount,"5559000000000002");
+  }
+
+  public static TransferInfo returnCard1TransferInfo(TransferInfo card1) {
+    return new TransferInfo(card1.amount,"5559000000000001");
+  }
 }
