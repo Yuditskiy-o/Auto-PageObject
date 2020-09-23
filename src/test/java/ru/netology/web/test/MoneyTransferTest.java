@@ -1,8 +1,7 @@
 package ru.netology.web.test;
 
 import lombok.val;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import ru.netology.web.data.DataHelper;
 import ru.netology.web.page.DashboardPage;
 import ru.netology.web.page.LoginPage;
@@ -28,19 +27,6 @@ class MoneyTransferTest {
         val dashboardPage = new DashboardPage();
         val amount = 1000;
         val expectedBalance = dashboardPage.getExpectedBalanceOfCard1(amount);
-        dashboardPage.transferToCard();
-        val transferPage = new TransferPage();
-        val transferInfo = DataHelper.getTransferInfo(String.valueOf(amount));
-        transferPage.moneyTransfer(transferInfo);
-        val finalBalance = dashboardPage.getCurrentBalanceOfCard1();
-        assertEquals(expectedBalance, finalBalance);
-    }
-
-    @Test
-    void shouldTransferAllMoney() {
-        val dashboardPage = new DashboardPage();
-        val amount = dashboardPage.getCurrentBalanceOfCard2();
-        val expectedBalance = dashboardPage.getExpectedBalanceOfCard2(amount);
         dashboardPage.transferToCard();
         val transferPage = new TransferPage();
         val transferInfo = DataHelper.getTransferInfo(String.valueOf(amount));
@@ -92,8 +78,8 @@ class MoneyTransferTest {
     @Test
     void shouldBeErrorWhenNotEnoughMoneyForTransfer() {
         val dashboardPage = new DashboardPage();
-        val currentAmount = dashboardPage.getCurrentBalanceOfCard2();
-        val amount = currentAmount + 1;
+        val amount = dashboardPage.getCurrentBalanceOfCard2() + 1;
+        dashboardPage.getExpectedBalanceOfCard2(amount);
         dashboardPage.transferToCard();
         val transferPage = new TransferPage();
         val transferInfo = DataHelper.getTransferInfo(String.valueOf(amount));
